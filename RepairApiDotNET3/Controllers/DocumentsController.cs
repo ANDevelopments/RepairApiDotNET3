@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RepairApiDotNET3.Models;
 
-namespace RepairApiDotNET3._1.Controllers
+namespace RepairApiDotNET3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

@@ -7,52 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RepairApiDotNET3.Models;
 
-namespace RepairApiDotNET3._1.Controllers
+namespace RepairApiDotNET3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ServsController : ControllerBase
+    public class ClientsController : ControllerBase
     {
         private readonly RepairDbContext _context;
 
-        public ServsController(RepairDbContext context)
+        public ClientsController(RepairDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Servs
+        // GET: api/Clients
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Serv>>> GetServs()
+        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
         {
-            return await _context.Servs.ToListAsync();
+            return await _context.Clients.ToListAsync();
         }
 
-        // GET: api/Servs/5
+        // GET: api/Clients/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Serv>> GetServ(int id)
+        public async Task<ActionResult<Client>> GetClient(int id)
         {
-            var serv = await _context.Servs.FindAsync(id);
+            var client = await _context.Clients.FindAsync(id);
 
-            if (serv == null)
+            if (client == null)
             {
                 return NotFound();
             }
 
-            return serv;
+            return client;
         }
 
-        // PUT: api/Servs/5
+        // PUT: api/Clients/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutServ(int id, Serv serv)
+        public async Task<IActionResult> PutClient(int id, Client client)
         {
-            if (id != serv.ID)
+            if (id != client.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(serv).State = EntityState.Modified;
+            _context.Entry(client).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace RepairApiDotNET3._1.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ServExists(id))
+                if (!ClientExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace RepairApiDotNET3._1.Controllers
             return NoContent();
         }
 
-        // POST: api/Servs
+        // POST: api/Clients
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Serv>> PostServ(Serv serv)
+        public async Task<ActionResult<Client>> PostClient(Client client)
         {
-            _context.Servs.Add(serv);
+            _context.Clients.Add(client);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetServ", new { id = serv.ID }, serv);
+            return CreatedAtAction("GetClient", new { id = client.ID }, client);
         }
 
-        // DELETE: api/Servs/5
+        // DELETE: api/Clients/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Serv>> DeleteServ(int id)
+        public async Task<ActionResult<Client>> DeleteClient(int id)
         {
-            var serv = await _context.Servs.FindAsync(id);
-            if (serv == null)
+            var client = await _context.Clients.FindAsync(id);
+            if (client == null)
             {
                 return NotFound();
             }
 
-            _context.Servs.Remove(serv);
+            _context.Clients.Remove(client);
             await _context.SaveChangesAsync();
 
-            return serv;
+            return client;
         }
 
-        private bool ServExists(int id)
+        private bool ClientExists(int id)
         {
-            return _context.Servs.Any(e => e.ID == id);
+            return _context.Clients.Any(e => e.ID == id);
         }
     }
 }

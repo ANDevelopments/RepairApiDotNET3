@@ -7,52 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RepairApiDotNET3.Models;
 
-namespace RepairApiDotNET3._1.Controllers
+namespace RepairApiDotNET3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ClientsController : ControllerBase
+    public class OrdersController : ControllerBase
     {
         private readonly RepairDbContext _context;
 
-        public ClientsController(RepairDbContext context)
+        public OrdersController(RepairDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Clients
+        // GET: api/Orders
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Client>>> GetClients()
+        public async Task<ActionResult<IEnumerable<Orders>>> GetOrders()
         {
-            return await _context.Clients.ToListAsync();
+            return await _context.Orders.ToListAsync();
         }
 
-        // GET: api/Clients/5
+        // GET: api/Orders/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Client>> GetClient(int id)
+        public async Task<ActionResult<Orders>> GetOrders(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
+            var orders = await _context.Orders.FindAsync(id);
 
-            if (client == null)
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            return client;
+            return orders;
         }
 
-        // PUT: api/Clients/5
+        // PUT: api/Orders/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutClient(int id, Client client)
+        public async Task<IActionResult> PutOrders(int id, Orders orders)
         {
-            if (id != client.ID)
+            if (id != orders.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(client).State = EntityState.Modified;
+            _context.Entry(orders).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace RepairApiDotNET3._1.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!ClientExists(id))
+                if (!OrdersExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace RepairApiDotNET3._1.Controllers
             return NoContent();
         }
 
-        // POST: api/Clients
+        // POST: api/Orders
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Client>> PostClient(Client client)
+        public async Task<ActionResult<Orders>> PostOrders(Orders orders)
         {
-            _context.Clients.Add(client);
+            _context.Orders.Add(orders);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetClient", new { id = client.ID }, client);
+            return CreatedAtAction("GetOrders", new { id = orders.ID }, orders);
         }
 
-        // DELETE: api/Clients/5
+        // DELETE: api/Orders/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Client>> DeleteClient(int id)
+        public async Task<ActionResult<Orders>> DeleteOrders(int id)
         {
-            var client = await _context.Clients.FindAsync(id);
-            if (client == null)
+            var orders = await _context.Orders.FindAsync(id);
+            if (orders == null)
             {
                 return NotFound();
             }
 
-            _context.Clients.Remove(client);
+            _context.Orders.Remove(orders);
             await _context.SaveChangesAsync();
 
-            return client;
+            return orders;
         }
 
-        private bool ClientExists(int id)
+        private bool OrdersExists(int id)
         {
-            return _context.Clients.Any(e => e.ID == id);
+            return _context.Orders.Any(e => e.ID == id);
         }
     }
 }

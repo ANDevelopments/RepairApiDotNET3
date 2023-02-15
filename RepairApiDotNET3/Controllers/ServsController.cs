@@ -7,52 +7,52 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RepairApiDotNET3.Models;
 
-namespace RepairApiDotNET3._1.Controllers
+namespace RepairApiDotNET3.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class RegistersController : ControllerBase
+    public class ServsController : ControllerBase
     {
         private readonly RepairDbContext _context;
 
-        public RegistersController(RepairDbContext context)
+        public ServsController(RepairDbContext context)
         {
             _context = context;
         }
 
-        // GET: api/Registers
+        // GET: api/Servs
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Register>>> GetRegister()
+        public async Task<ActionResult<IEnumerable<Serv>>> GetServs()
         {
-            return await _context.Register.ToListAsync();
+            return await _context.Servs.ToListAsync();
         }
 
-        // GET: api/Registers/5
+        // GET: api/Servs/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Register>> GetRegister(int id)
+        public async Task<ActionResult<Serv>> GetServ(int id)
         {
-            var register = await _context.Register.FindAsync(id);
+            var serv = await _context.Servs.FindAsync(id);
 
-            if (register == null)
+            if (serv == null)
             {
                 return NotFound();
             }
 
-            return register;
+            return serv;
         }
 
-        // PUT: api/Registers/5
+        // PUT: api/Servs/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutRegister(int id, Register register)
+        public async Task<IActionResult> PutServ(int id, Serv serv)
         {
-            if (id != register.UserID)
+            if (id != serv.ID)
             {
                 return BadRequest();
             }
 
-            _context.Entry(register).State = EntityState.Modified;
+            _context.Entry(serv).State = EntityState.Modified;
 
             try
             {
@@ -60,7 +60,7 @@ namespace RepairApiDotNET3._1.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!RegisterExists(id))
+                if (!ServExists(id))
                 {
                     return NotFound();
                 }
@@ -73,37 +73,37 @@ namespace RepairApiDotNET3._1.Controllers
             return NoContent();
         }
 
-        // POST: api/Registers
+        // POST: api/Servs
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        public async Task<ActionResult<Register>> PostRegister(Register register)
+        public async Task<ActionResult<Serv>> PostServ(Serv serv)
         {
-            _context.Register.Add(register);
+            _context.Servs.Add(serv);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetRegister", new { id = register.UserID }, register);
+            return CreatedAtAction("GetServ", new { id = serv.ID }, serv);
         }
 
-        // DELETE: api/Registers/5
+        // DELETE: api/Servs/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Register>> DeleteRegister(int id)
+        public async Task<ActionResult<Serv>> DeleteServ(int id)
         {
-            var register = await _context.Register.FindAsync(id);
-            if (register == null)
+            var serv = await _context.Servs.FindAsync(id);
+            if (serv == null)
             {
                 return NotFound();
             }
 
-            _context.Register.Remove(register);
+            _context.Servs.Remove(serv);
             await _context.SaveChangesAsync();
 
-            return register;
+            return serv;
         }
 
-        private bool RegisterExists(int id)
+        private bool ServExists(int id)
         {
-            return _context.Register.Any(e => e.UserID == id);
+            return _context.Servs.Any(e => e.ID == id);
         }
     }
 }
